@@ -3,7 +3,8 @@ var profilesUrl = 'https://jsonplaceholder.typicode.com/users',
     errorElement = {},
     loading = {},
     profileTemplate = '',
-    profilesContainer = {};
+    profilesContainer = {},
+    gmapObjects = [];
 
 function pageLoaded() {
   errorElement = document.getElementById('profiles-load-error');
@@ -20,29 +21,30 @@ function resetPage() {
 }
 
 function init() {
-	resetPage();
 
-	getProfilesList(profilesUrl, success, failure);
+  resetPage();  
+  // Get profiles list here
+  getProfilesList(profilesUrl, success, failure);
 
-	function success(profiles) {
-		// Get all profiles: Even ID and Sorted by last name in ascending order
-	    profilesList = profiles.filter(function(profile) {
-	      return !!profile.id && profile.id%2 === 0;
-	    }).sort(function(a, b) {
-	      return a.name.split(" ")[a.name.split(" ").length === 1 ? 1 : a.name.split(" ").length - 1]
-	              .localeCompare(b.name.split(" ").length === 1 ? 1 : b.name.split(" ")[b.name.split(" ").length - 1]);
-	    }).forEach(function(profile) {
-	      addProfile(profile);
-	    });
+  function success(profiles) {
+    // Get all profiles: Even ID and Sorted by last name in ascending order
+    profilesList = profiles.filter(function(profile) {
+      return !!profile.id && profile.id%2 === 0;
+    }).sort(function(a, b) {
+      return a.name.split(" ")[a.name.split(" ").length === 1 ? 1 : a.name.split(" ").length - 1]
+              .localeCompare(b.name.split(" ").length === 1 ? 1 : b.name.split(" ")[b.name.split(" ").length - 1]);
+    }).forEach(function(profile) {
+      addProfile(profile);
+    });
 
-	    errorElement.style.display = 'none';
-	    loading.style.display = 'none';
-	}
+    errorElement.style.display = 'none';
+    loading.style.display = 'none';
+  }
 
-	function failure(error) {
-		errorElement.style.display = 'block';
-    	loading.style.display = 'none';
-	}
+  function failure(error) {
+    errorElement.style.display = 'block';
+    loading.style.display = 'none';
+  }
 }
 
 function addProfile(profile) {
@@ -73,4 +75,6 @@ function addProfile(profile) {
   }
 
   profilesContainer.innerHTML += createProfile();
+
+  createMapAndMarker(parseFloat(profile.address.geo.lat), parseFloat(profile.address.geo.lng), '#gmaps'+profile.id);
 }
