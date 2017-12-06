@@ -4,8 +4,88 @@
     <meta charset="UTF-8">
     <title>Profiles List</title>
     <link rel="stylesheet" href="css/main.css">
- </head>
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="/js/gmaps.js"></script>
+</head>
+<body onload="pageLoaded()">
 
- <body onload="pageLoaded()">
- </body>
- </html>
+<div class="row">
+    <h1 class="profiles-label"
+        title="Profiles List" 
+        alt="List of profiles">Profiles List:</h1>
+    <p class="proliles-description"
+        title="Profiles List displaus the list of profile with their location"
+        alt="Profiles list description">
+        This page displays the list of profiles along with their location...
+    </p>
+
+    <img id="loading" 
+        src="images/loading.gif"
+        class="loading" 
+        title="Loading profiles"
+        alt="Loading profiles" />
+
+    <div id="profiles" class="profiles"></div>
+</div>
+
+<div class="row">
+    <h1 class="profiles-load-error"
+        title="Oops! There has been error loading your profiles. Please try again!"
+        alt="Error loading profiles."
+        id="profiles-load-error">
+        Oops!!! There has been error loading your profiles. Please try again!
+    </h1>
+</div>
+
+<script src = "/js/service.js"></script>
+<script src = "/js/index.js"></script>
+<script src = "/js/fabric.js"></script>
+
+<script type="text/template" id="profile-template">
+    <div class="column profile" id="profile{{id}}">
+        <div class="row-label">
+            <label class="label">Id:&nbsp;</label>
+            <label class="label-value">{{id}}</label>
+        </div>
+        <div class="row-label">
+            <label class="label">Name:&nbsp;</label>
+            <label class="label-value">{{name}}</label>
+        </div>
+        <div class="row-label">
+            <label class="label">Username:&nbsp;</label>
+            <label class="label-value">{{username}}</label>
+        </div>
+        <div class="row-label">
+            <label class="label">Street:&nbsp;</label>
+            <label class="label-value">{{street}}</label>
+        </div>
+        <div class="row-label">
+            <label class="label">Suite:&nbsp;</label>
+            <label class="label-value">{{suite}}</label>
+        </div>
+        <div class="row-label">
+            <label class="label">City:&nbsp;</label>
+            <label class="label-value">{{city}}</label>
+        </div>
+        <div class="row-label">
+            <label class="label">Zipcode:&nbsp;</label>
+            <label class="label-value">{{zipcode}}</label>
+        </div>
+        <div class="row-label">
+            <label class="label">Phone:&nbsp;</label>
+            <label class="label-value">{{phone}}</label>
+        </div>
+        <div class="row-label">
+            <label class="label">Website:&nbsp;</label>
+            <label class="label-value">{{website}}</label>
+        </div>
+        <div class="row-label">
+            <label class="label">Company:&nbsp;</label>
+            <label class="label-value">{{companyName}}</label>
+        </div>
+        <div class="row-label gmaps-container" id="gmaps{{id}}">
+        </div>
+    </div>
+</script>
+</body>
+</html>
